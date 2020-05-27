@@ -1,32 +1,95 @@
-<include a CircleCI status badge, here>
+[![john4pius](https://circleci.com/gh/john4pius/udacity-project-ml-microservice-kubernetes.svg?style=shield)](https://app.circleci.com/pipelines/github/john4pius/udacity-project-ml-microservice-kubernetes/4/workflows/e7c97cef-0729-4229-8b21-29a9f016bde2)
 
-## Project Overview
+# Project Overview
 
-In this project, you will apply the skills you have acquired in this course to operationalize a Machine Learning Microservice API. 
-
-You are given a pre-trained, `sklearn` model that has been trained to predict housing prices in Boston according to several features, such as average rooms in a home and data about highway access, teacher-to-pupil ratios, and so on. You can read more about the data, which was initially taken from Kaggle, on [the data source site](https://www.kaggle.com/c/boston-housing). This project tests your ability to operationalize a Python flask app—in a provided file, `app.py`—that serves out predictions (inference) about housing prices through API calls. This project could be extended to any pre-trained machine learning model, such as those for image recognition and data labeling.
-
-### Project Tasks
-
-Your project goal is to operationalize this working, machine learning microservice using [kubernetes](https://kubernetes.io/), which is an open-source system for automating the management of containerized applications. In this project you will:
+The project operationalize machine learning microservice using kubernetes, which is an open-source system for automating the management of containerized applications. Below are the main activities carried out in this project:
 * Test your project code using linting
 * Complete a Dockerfile to containerize this application
 * Deploy your containerized application using Docker and make a prediction
-* Improve the log statements in the source code for this application
 * Configure Kubernetes and create a Kubernetes cluster
 * Deploy a container using Kubernetes and make a prediction
 * Upload a complete Github repo with CircleCI to indicate that your code has been tested
 
-You can find a detailed [project rubric, here](https://review.udacity.com/#!/rubrics/2576/view).
 
-**The final implementation of the project will showcase your abilities to operationalize production microservices.**
+# Files explanation
+* app.py: Python flask app that serves out predictions (inference) about housing prices through API calls
+* make_prediction.sh: Send a request to the Python flask app to get a prediction
+* Makefile: includes instructions on environment setup and lint tests
+* Dockerfile: Dockerfile for building the image
+* run_docker.sh: file to be able to get Docker running, locally
+* run_kubernetes.sh: file to run the app in kubernetes
+* upload_docker.sh: file to upload the image to docker
+* config.yml: CircleCI configuration file for running the tests
 
----
+# Setting up and Building the Project
+#### Create and Activate an Environment
 
-## Setup the Environment
+```sh
+$ python3 -m venv ~/.devops
+$ source ~/.devops/bin/activate
+```
 
-* Create a virtualenv and activate it
-* Run `make install` to install the necessary dependencies
+#### Installing dependencies via project Makefile
+```sh
+$ make install
+```
+
+#### Install VirtualBox:
+For MacOS:
+```sh
+$ brew cask install virtualbox
+```
+For Windows, I recommend using a Windows host.
+
+#### Install libraries
+* Docker
+Create a free docker account where you’ll choose a unique username and link your email to a docker account.
+Install the latest version of docker, choose the Community Edition (CE) for your operating system, on docker’s installation site.
+* Hadolint 
+For MacOS
+```sh
+brew install hadolint
+```
+For Windows:
+```sh
+$ scoop install hadolint
+```
+* Kubernetes (Minikube)
+For MacOS:
+```sh
+$ brew cask install minikube
+```
+For Windows, I recommend using the Windows installer.
+
+#### Run Lint Checks
+```sh
+$ make lint
+```
+#### Run a Container
+```sh
+$ ./run_docker.sh
+```
+
+#### Make a Prediction
+```sh
+$ ./makeprediction.sh
+```
+
+#### Upload the Docker Image
+```sh
+$ ./upload_docker.sh
+```
+
+#### Configure Kubernetes to Run Locally
+```sh
+$ minikube start
+```
+
+#### Deploy with Kubernetes
+```sh
+$ ./run_kubernetes.sh
+```
+#### Test using CircleCI. Setup and build project in CircleCI. if your project passes the lint tests, you'll see that the project passes!
 
 ### Running `app.py`
 
